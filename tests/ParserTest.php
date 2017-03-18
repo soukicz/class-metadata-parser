@@ -6,16 +6,15 @@ use PHPUnit\Framework\TestCase;
 use Soukicz\ClassMetadataParser\ClassMetadataParser;
 use Soukicz\ClassMetadataParser\Model\ClassMetadata;
 
-
 class ParserTest extends TestCase
 {
 
-    function testMethodCount()
+    public function testMethodCount()
     {
         $this->assertCount(17, $this->getParser()->getClass(Dummy::class)->getMethods());
     }
 
-    function testReturnTypes()
+    public function testReturnTypes()
     {
         $data = $this->getParser()->getClass(Dummy::class);
 
@@ -101,7 +100,7 @@ class ParserTest extends TestCase
         $this->assertEquals(Dummy::class, $data->getMethod('getSelfAnnotation')->getReturn()->getType());
     }
 
-    function testFieldFromMethod()
+    public function testFieldFromMethod()
     {
         $this->assertEquals('name', ClassMetadataParser::getFieldName('getName'));
         $this->assertEquals('top_name', ClassMetadataParser::getFieldName('getTopName'));
