@@ -4,7 +4,7 @@ namespace Soukicz\ClassMetadataParser;
 use Doctrine\Common\Annotations\PhpParser;
 use Doctrine\Common\Annotations\Reader;
 use Soukicz\ClassMetadataParser\Annotation\CollectionDefinition;
-use Soukicz\ClassMetadataParser\Model\ClassMetaData;
+use Soukicz\ClassMetadataParser\Model\ClassMetadata;
 use Soukicz\ClassMetadataParser\Model\MethodMetadata;
 use Soukicz\ClassMetadataParser\Model\ReturnMetadata;
 
@@ -25,7 +25,7 @@ class ClassMetadataParser {
     }
 
     /**
-     * @var ClassMetaData[]
+     * @var ClassMetadata[]
      */
     private $cache = [];
 
