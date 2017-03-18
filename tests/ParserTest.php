@@ -10,7 +10,7 @@ use Soukicz\ClassMetadataParser\Model\ClassMetadata;
 class ParserTest extends TestCase {
 
     function testMethodCount() {
-        $this->assertCount(13, $this->getParser()->getClass(Dummy::class)->getMethods());
+        $this->assertCount(17, $this->getParser()->getClass(Dummy::class)->getMethods());
     }
 
     function testReturnTypes() {
@@ -86,6 +86,15 @@ class ParserTest extends TestCase {
         $this->assertTrue($data->getMethod('getCollectionAnnotationCustomNull')->getReturn()->isCollection());
         $this->assertTrue($data->getMethod('getCollectionAnnotationCustomNull')->getReturn()->allowsNull());
 
+    }
+
+    public function testSelfReturn() {
+        $data = $this->getParser()->getClass(Dummy::class);
+        $this->assertEquals(Dummy::class, $data->getMethod('getDummy')->getReturn()->getType());
+        $this->assertEquals(Dummy::class, $data->getMethod('getDummyAnnotation')->getReturn()->getType());
+
+        $this->assertEquals(Dummy::class, $data->getMethod('getSelf')->getReturn()->getType());
+        $this->assertEquals(Dummy::class, $data->getMethod('getSelfAnnotation')->getReturn()->getType());
     }
 
     function testFieldFromMethod() {

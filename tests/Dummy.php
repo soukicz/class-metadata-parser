@@ -80,4 +80,26 @@ class Dummy {
     public function getCollectionAnnotationCustomNull() {
         return null;
     }
+
+    public function getDummy():?Dummy {
+        return null;
+    }
+
+    /**
+     * @return null|Dummy
+     */
+    public function getDummyAnnotation():?Dummy {
+        return null;
+    }
+
+    public function getSelf():?self {
+        return null;
+    }
+
+    /**
+     * @return null|self
+     */
+    public function getSelfAnnotation():?self {
+        return null;
+    }
 }

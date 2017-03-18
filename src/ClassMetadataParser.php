@@ -59,21 +59,25 @@ class ClassMetadataParser {
         $docBlock = $method->getDocComment();
         if(preg_match('~\s\*\s*@return\s+null\|([a-zA-Z0-9]+)(\[\])?~', $docBlock, $m)) {
             return new ReturnMetadata(
-                $this->getFullQualifiedName($m[1], $imports),
+                $this->getFullQualifiedName($method, $m[1], $imports),
                 $this->isTypeBuiltIn($m[1]),
                 true,
                 !empty($m[2])
             );
         } elseif(preg_match('~\s\*\s*@return\s+([a-zA-Z0-9]+)(\[\])?(\|null)?~', $docBlock, $m)) {
             return new ReturnMetadata(
-                $this->getFullQualifiedName($m[1], $imports),
+                $this->getFullQualifiedName($method, $m[1], $imports),
                 $this->isTypeBuiltIn($m[1]),
                 !empty($m[3]),
                 !empty($m[2])
             );
         } elseif($method->hasReturnType()) {
+            $type = (string)$method->getReturnType();
+            if($type === 'self') {
+                $type = $method->getDeclaringClass()->getName();
+            }
             return new ReturnMetadata(
-                (string)$method->getReturnType(),
+                $type,
                 $method->getReturnType()->isBuiltin(),
                 $method->getReturnType()->allowsNull(),
                 false
@@ -82,16 +86,30 @@ class ClassMetadataParser {
         return null;
     }
 
-    private function getFullQualifiedName(string $alias, array $imports): string {
-        $parts = explode('\\', $alias);
-        $first = strtolower(array_shift($parts));
-        if(isset($imports[$first])) {
-            if(empty($parts)) {
-                return $imports[$first];
-            }
-            return $imports[$first] . '\\' . implode('\\', $parts);
+    private function getFullQualifiedName(\ReflectionMethod $method, string $alias, array $imports): string {
+        if($alias === 'self') {
+            return $method->getDeclaringClass()->getName();
         }
-        return $alias;
+
+        if($this->isTypeBuiltIn($alias)) {
+            return $alias;
+        }
+
+        $parts = explode('\\', $alias);
+        $last = $parts[count($parts) - 1];
+        $first = strtolower(array_shift($parts));
+
+        if($last === $method->getDeclaringClass()->getShortName()) {
+            return $method->getDeclaringClass()->getName();
+        }
+
+        $namespace = $imports[$first] ?? $method->getDeclaringClass()->getNamespaceName();
+
+        if(empty($parts)) {
+            return $namespace;
+        }
+
+        return $namespace . '\\' . implode('\\', $parts);
     }
 
     public static function getFieldName(string $methodName):?string {
