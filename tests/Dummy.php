@@ -1,6 +1,8 @@
 <?php
 namespace Soukicz\ClassMetadataParser\Tests;
 
+use Soukicz\ClassMetadataParser\Model\ClassMetadata;
+
 class Dummy {
 
     public function getNoType() {
@@ -15,11 +17,11 @@ class Dummy {
         return null;
     }
 
-    public function getCustomType(): Dummy {
-        return new Dummy;
+    public function getCustomType(): ClassMetadata {
+        return new ClassMetadata([]);
     }
 
-    public function getCustomNull():?Dummy {
+    public function getCustomNull():?ClassMetadata {
         return null;
     }
 
@@ -38,16 +40,16 @@ class Dummy {
     }
 
     /**
-     * @return Dummy
+     * @return ClassMetadata
      */
-    public function getAnnotationCustomType(): Dummy {
-        return new Dummy();
+    public function getAnnotationCustomType(): ClassMetadata {
+        return new ClassMetadata([]);
     }
 
     /**
-     * @return null|Dummy
+     * @return null|ClassMetadata
      */
-    public function getAnnotationCustomNull():?Dummy {
+    public function getAnnotationCustomNull():?ClassMetadata {
         return null;
     }
 
@@ -66,14 +68,14 @@ class Dummy {
     }
 
     /**
-     * @return Dummy[]
+     * @return ClassMetadata[]
      */
     public function getCollectionAnnotationCustomType() {
         return [];
     }
 
     /**
-     * @return null|Dummy[]
+     * @return null|ClassMetadata[]
      */
     public function getCollectionAnnotationCustomNull() {
         return null;

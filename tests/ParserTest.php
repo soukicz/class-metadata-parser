@@ -4,6 +4,7 @@ namespace Soukicz\ClassMetadataParser\Tests;
 use Doctrine\Common\Annotations\AnnotationReader;
 use PHPUnit\Framework\TestCase;
 use Soukicz\ClassMetadataParser\ClassMetadataParser;
+use Soukicz\ClassMetadataParser\Model\ClassMetadata;
 
 
 class ParserTest extends TestCase {
@@ -29,13 +30,13 @@ class ParserTest extends TestCase {
         $this->assertFalse($data->getMethod('getBuiltInTypeNull')->getReturn()->isCollection());
         $this->assertTrue($data->getMethod('getBuiltInTypeNull')->getReturn()->allowsNull());
 
-        $this->assertEquals(Dummy::class, $data->getMethod('getCustomType')->getReturn()->getType());
+        $this->assertEquals(ClassMetadata::class, $data->getMethod('getCustomType')->getReturn()->getType());
         $this->assertFalse($data->getMethod('getCustomType')->getReturn()->isBuiltin());
         $this->assertFalse($data->getMethod('getCustomType')->getReturn()->isCollection());
         $this->assertFalse($data->getMethod('getCustomType')->getReturn()->allowsNull());
 
 
-        $this->assertEquals(Dummy::class, $data->getMethod('getCustomNull')->getReturn()->getType());
+        $this->assertEquals(ClassMetadata::class, $data->getMethod('getCustomNull')->getReturn()->getType());
         $this->assertFalse($data->getMethod('getCustomNull')->getReturn()->isBuiltin());
         $this->assertFalse($data->getMethod('getCustomNull')->getReturn()->isCollection());
         $this->assertTrue($data->getMethod('getCustomNull')->getReturn()->allowsNull());
@@ -52,12 +53,12 @@ class ParserTest extends TestCase {
         $this->assertFalse($data->getMethod('getAnnotationBuiltInTypeNull')->getReturn()->isCollection());
         $this->assertTrue($data->getMethod('getAnnotationBuiltInTypeNull')->getReturn()->allowsNull());
 
-        $this->assertEquals(Dummy::class, $data->getMethod('getAnnotationCustomType')->getReturn()->getType());
+        $this->assertEquals(ClassMetadata::class, $data->getMethod('getAnnotationCustomType')->getReturn()->getType());
         $this->assertFalse($data->getMethod('getAnnotationCustomType')->getReturn()->isBuiltin());
         $this->assertFalse($data->getMethod('getAnnotationCustomType')->getReturn()->isCollection());
         $this->assertFalse($data->getMethod('getAnnotationCustomType')->getReturn()->allowsNull());
 
-        $this->assertEquals(Dummy::class, $data->getMethod('getAnnotationCustomNull')->getReturn()->getType());
+        $this->assertEquals(ClassMetadata::class, $data->getMethod('getAnnotationCustomNull')->getReturn()->getType());
         $this->assertFalse($data->getMethod('getAnnotationCustomNull')->getReturn()->isBuiltin());
         $this->assertFalse($data->getMethod('getAnnotationCustomNull')->getReturn()->isCollection());
         $this->assertTrue($data->getMethod('getAnnotationCustomNull')->getReturn()->allowsNull());
@@ -74,13 +75,13 @@ class ParserTest extends TestCase {
         $this->assertTrue($data->getMethod('getCollectionAnnotationBuiltInTypeNull')->getReturn()->isCollection());
         $this->assertTrue($data->getMethod('getCollectionAnnotationBuiltInTypeNull')->getReturn()->allowsNull());
 
-        $this->assertEquals(Dummy::class, $data->getMethod('getCollectionAnnotationCustomType')->getReturn()->getType());
+        $this->assertEquals(ClassMetadata::class, $data->getMethod('getCollectionAnnotationCustomType')->getReturn()->getType());
         $this->assertFalse($data->getMethod('getCollectionAnnotationCustomType')->getReturn()->isBuiltin());
         $this->assertTrue($data->getMethod('getCollectionAnnotationCustomType')->getReturn()->isCollection());
         $this->assertFalse($data->getMethod('getCollectionAnnotationCustomType')->getReturn()->allowsNull());
 
 
-        $this->assertEquals(Dummy::class, $data->getMethod('getCollectionAnnotationCustomNull')->getReturn()->getType());
+        $this->assertEquals(ClassMetadata::class, $data->getMethod('getCollectionAnnotationCustomNull')->getReturn()->getType());
         $this->assertFalse($data->getMethod('getCollectionAnnotationCustomNull')->getReturn()->isBuiltin());
         $this->assertTrue($data->getMethod('getCollectionAnnotationCustomNull')->getReturn()->isCollection());
         $this->assertTrue($data->getMethod('getCollectionAnnotationCustomNull')->getReturn()->allowsNull());

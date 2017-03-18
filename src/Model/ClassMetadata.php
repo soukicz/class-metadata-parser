@@ -2,7 +2,7 @@
 
 namespace Soukicz\ClassMetadataParser\Model;
 
-class ClassMetaData {
+class ClassMetadata {
     /**
      * @var MethodMetadata[]
      */
