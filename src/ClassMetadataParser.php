@@ -109,10 +109,13 @@ class ClassMetadataParser
             return $method->getDeclaringClass()->getName();
         }
 
-        $namespace = $imports[$first] ?? $method->getDeclaringClass()->getNamespaceName();
+        if (!isset($imports[$first])) {
+            return $method->getDeclaringClass()->getNamespaceName() . '\\' . $alias;
+        }
 
+        $namespace = $imports[$first];
         if (empty($parts)) {
-            return $namespace . '\\' . $alias;
+            return $namespace;
         }
         return $namespace . '\\' . implode('\\', $parts);
     }
