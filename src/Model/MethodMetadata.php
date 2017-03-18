@@ -7,7 +7,12 @@ class MethodMetadata {
     /**
      * @var string
      */
-    private $name, $fieldName;
+    private $name;
+
+    /**
+     * @var null|string
+     */
+    private $fieldName;
 
     /**
      * @var ReturnMetadata|null
@@ -19,7 +24,7 @@ class MethodMetadata {
      */
     private $mapping;
 
-    public function __construct(string $name, string $fieldName, ?ReturnMetadata $return, string $mapping = null) {
+    public function __construct(string $name, ?string $fieldName, ?ReturnMetadata $return, string $mapping = null) {
         $this->name = $name;
         $this->fieldName = $fieldName;
         $this->return = $return;
@@ -30,7 +35,7 @@ class MethodMetadata {
         return $this->name;
     }
 
-    public function getFieldName(): string {
+    public function getFieldName(): ?string {
         return $this->fieldName;
     }
 
