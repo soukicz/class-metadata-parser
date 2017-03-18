@@ -1,0 +1,12 @@
+stages:
+  - test
+
+test:
+  stage: test
+  image: 057748052866.dkr.ecr.eu-west-1.amazonaws.com/shop-php-test:latest
+  before_script:
+    - composer update
+  script:
+  - phpunit --configuration phpunit.xml
+  tags:
+    - docker
