@@ -8,7 +8,8 @@ use Soukicz\ClassMetadataParser\Model\ClassMetadata;
 use Soukicz\ClassMetadataParser\Model\MethodMetadata;
 use Soukicz\ClassMetadataParser\Model\ReturnMetadata;
 
-class ClassMetadataParser {
+class ClassMetadataParser
+{
     /**
      * @var Reader
      */
@@ -19,7 +20,8 @@ class ClassMetadataParser {
      */
     private $phpParser;
 
-    public function __construct(Reader $annotationReader) {
+    public function __construct(Reader $annotationReader)
+    {
         $this->annotationReader = $annotationReader;
         $this->phpParser = new PhpParser();
     }
@@ -29,8 +31,9 @@ class ClassMetadataParser {
      */
     private $cache = [];
 
-    public function getClass(string $className): ClassMetadata {
-        if(!isset($this->cache[$className])) {
+    public function getClass(string $className): ClassMetadata
+    {
+        if (!isset($this->cache[$className])) {
             $reflectionClass = new \ReflectionClass($className);
             $methods = [];
 
@@ -51,29 +54,31 @@ class ClassMetadataParser {
         return $this->cache[$className];
     }
 
-    private function isTypeBuiltIn(string $type) {
+    private function isTypeBuiltIn(string $type)
+    {
         return in_array($type, ['null', 'void', 'string', 'int', 'float', 'bool']);
     }
 
-    private function getReturn(\ReflectionMethod $method, array $imports):?ReturnMetadata {
+    private function getReturn(\ReflectionMethod $method, array $imports):?ReturnMetadata
+    {
         $docBlock = $method->getDocComment();
-        if(preg_match('~\s\*\s*@return\s+null\|([a-zA-Z0-9]+)(\[\])?~', $docBlock, $m)) {
+        if (preg_match('~\s\*\s*@return\s+null\|([a-zA-Z0-9]+)(\[\])?~', $docBlock, $m)) {
             return new ReturnMetadata(
                 $this->getFullQualifiedName($method, $m[1], $imports),
                 $this->isTypeBuiltIn($m[1]),
                 true,
                 !empty($m[2])
             );
-        } elseif(preg_match('~\s\*\s*@return\s+([a-zA-Z0-9]+)(\[\])?(\|null)?~', $docBlock, $m)) {
+        } elseif (preg_match('~\s\*\s*@return\s+([a-zA-Z0-9]+)(\[\])?(\|null)?~', $docBlock, $m)) {
             return new ReturnMetadata(
                 $this->getFullQualifiedName($method, $m[1], $imports),
                 $this->isTypeBuiltIn($m[1]),
                 !empty($m[3]),
                 !empty($m[2])
             );
-        } elseif($method->hasReturnType()) {
+        } elseif ($method->hasReturnType()) {
             $type = (string)$method->getReturnType();
-            if($type === 'self') {
+            if ($type === 'self') {
                 $type = $method->getDeclaringClass()->getName();
             }
             return new ReturnMetadata(
@@ -86,12 +91,13 @@ class ClassMetadataParser {
         return null;
     }
 
-    private function getFullQualifiedName(\ReflectionMethod $method, string $alias, array $imports): string {
-        if($alias === 'self') {
+    private function getFullQualifiedName(\ReflectionMethod $method, string $alias, array $imports): string
+    {
+        if ($alias === 'self') {
             return $method->getDeclaringClass()->getName();
         }
 
-        if($this->isTypeBuiltIn($alias)) {
+        if ($this->isTypeBuiltIn($alias)) {
             return $alias;
         }
 
@@ -99,30 +105,31 @@ class ClassMetadataParser {
         $last = $parts[count($parts) - 1];
         $first = strtolower(array_shift($parts));
 
-        if($last === $method->getDeclaringClass()->getShortName()) {
+        if ($last === $method->getDeclaringClass()->getShortName()) {
             return $method->getDeclaringClass()->getName();
         }
 
         $namespace = $imports[$first] ?? $method->getDeclaringClass()->getNamespaceName();
 
-        if(empty($parts)) {
+        if (empty($parts)) {
             return $namespace;
         }
 
         return $namespace . '\\' . implode('\\', $parts);
     }
 
-    public static function getFieldName(string $methodName):?string {
-        if(substr($methodName, 0, 3) !== 'get') {
+    public static function getFieldName(string $methodName):?string
+    {
+        if (substr($methodName, 0, 3) !== 'get') {
             return null;
         }
         $name = substr($methodName, 3);
         $newName = '';
         $length = strlen($name);
         for ($i = 0; $i < $length; $i++) {
-            if($i == 0) {
+            if ($i == 0) {
                 $newName = strtolower($name[$i]);
-            } elseif(strtolower($name[$i]) === $name[$i]) {
+            } elseif (strtolower($name[$i]) === $name[$i]) {
                 $newName .= $name[$i];
             } else {
                 $newName .= '_' . strtolower($name[$i]);

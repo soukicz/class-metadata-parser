@@ -2,7 +2,8 @@
 
 namespace Soukicz\ClassMetadataParser\Model;
 
-class MethodMetadata {
+class MethodMetadata
+{
 
     /**
      * @var string
@@ -24,26 +25,31 @@ class MethodMetadata {
      */
     private $mapping;
 
-    public function __construct(string $name, ?string $fieldName, ?ReturnMetadata $return, string $mapping = null) {
+    public function __construct(string $name, ?string $fieldName, ?ReturnMetadata $return, string $mapping = null)
+    {
         $this->name = $name;
         $this->fieldName = $fieldName;
         $this->return = $return;
         $this->mapping = $mapping;
     }
 
-    public function getName(): string {
+    public function getName(): string
+    {
         return $this->name;
     }
 
-    public function getFieldName(): ?string {
+    public function getFieldName(): ?string
+    {
         return $this->fieldName;
     }
 
-    public function getReturn():?ReturnMetadata {
+    public function getReturn():?ReturnMetadata
+    {
         return $this->return;
     }
 
-    public function getMapping():?string {
+    public function getMapping():?string
+    {
         return $this->mapping;
     }
 }
