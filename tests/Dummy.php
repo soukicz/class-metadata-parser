@@ -3,103 +3,121 @@ namespace Soukicz\ClassMetadataParser\Tests;
 
 use Soukicz\ClassMetadataParser\Model\ClassMetadata;
 
-class Dummy {
+class Dummy
+{
 
-    public function getNoType() {
+    public function getNoType()
+    {
 
     }
 
-    public function getBuiltInType(): string {
+    public function getBuiltInType(): string
+    {
         return '';
     }
 
-    public function getBuiltInTypeNull():?string {
+    public function getBuiltInTypeNull():?string
+    {
         return null;
     }
 
-    public function getCustomType(): ClassMetadata {
+    public function getCustomType(): ClassMetadata
+    {
         return new ClassMetadata([]);
     }
 
-    public function getCustomNull():?ClassMetadata {
+    public function getCustomNull():?ClassMetadata
+    {
         return null;
     }
 
     /**
      * @return string
      */
-    public function getAnnotationBuiltInType(): string {
+    public function getAnnotationBuiltInType(): string
+    {
         return '';
     }
 
     /**
      * @return null|string
      */
-    public function getAnnotationBuiltInTypeNull():?string {
+    public function getAnnotationBuiltInTypeNull():?string
+    {
         return null;
     }
 
     /**
      * @return ClassMetadata
      */
-    public function getAnnotationCustomType(): ClassMetadata {
+    public function getAnnotationCustomType(): ClassMetadata
+    {
         return new ClassMetadata([]);
     }
 
     /**
      * @return null|ClassMetadata
      */
-    public function getAnnotationCustomNull():?ClassMetadata {
+    public function getAnnotationCustomNull():?ClassMetadata
+    {
         return null;
     }
 
     /**
      * @return string[]
      */
-    public function getCollectionAnnotationBuiltInType() {
+    public function getCollectionAnnotationBuiltInType()
+    {
         return [];
     }
 
     /**
      * @return null|string[]
      */
-    public function getCollectionAnnotationBuiltInTypeNull() {
+    public function getCollectionAnnotationBuiltInTypeNull()
+    {
         return null;
     }
 
     /**
      * @return ClassMetadata[]
      */
-    public function getCollectionAnnotationCustomType() {
+    public function getCollectionAnnotationCustomType()
+    {
         return [];
     }
 
     /**
      * @return null|ClassMetadata[]
      */
-    public function getCollectionAnnotationCustomNull() {
+    public function getCollectionAnnotationCustomNull()
+    {
         return null;
     }
 
-    public function getDummy():?Dummy {
+    public function getDummy():?Dummy
+    {
         return null;
     }
 
     /**
      * @return null|Dummy
      */
-    public function getDummyAnnotation():?Dummy {
+    public function getDummyAnnotation():?Dummy
+    {
         return null;
     }
 
-    public function getSelf():?self {
+    public function getSelf():?self
+    {
         return null;
     }
 
     /**
      * @return null|self
      */
-    public function getSelfAnnotation():?self {
+    public function getSelfAnnotation():?self
+    {
         return null;
     }
 }

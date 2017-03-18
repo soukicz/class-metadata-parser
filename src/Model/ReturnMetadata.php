@@ -7,10 +7,21 @@ class ReturnMetadata
      * @var string
      */
     private $type;
+
     /**
      * @var bool
      */
-    private $builtin, $allowsNull, $collection;
+    private $builtin;
+
+    /**
+     * @var bool
+     */
+    private $collection;
+
+    /**
+     * @var bool
+     */
+    private $allowsNull;
 
     public function __construct(string $type, bool $builtin, bool $allowsNull, bool $collection)
     {

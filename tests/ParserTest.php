@@ -7,13 +7,16 @@ use Soukicz\ClassMetadataParser\ClassMetadataParser;
 use Soukicz\ClassMetadataParser\Model\ClassMetadata;
 
 
-class ParserTest extends TestCase {
+class ParserTest extends TestCase
+{
 
-    function testMethodCount() {
+    function testMethodCount()
+    {
         $this->assertCount(17, $this->getParser()->getClass(Dummy::class)->getMethods());
     }
 
-    function testReturnTypes() {
+    function testReturnTypes()
+    {
         $data = $this->getParser()->getClass(Dummy::class);
 
         $this->assertNull($data->getMethod('getNoType')->getReturn());
@@ -88,7 +91,8 @@ class ParserTest extends TestCase {
 
     }
 
-    public function testSelfReturn() {
+    public function testSelfReturn()
+    {
         $data = $this->getParser()->getClass(Dummy::class);
         $this->assertEquals(Dummy::class, $data->getMethod('getDummy')->getReturn()->getType());
         $this->assertEquals(Dummy::class, $data->getMethod('getDummyAnnotation')->getReturn()->getType());
@@ -97,12 +101,14 @@ class ParserTest extends TestCase {
         $this->assertEquals(Dummy::class, $data->getMethod('getSelfAnnotation')->getReturn()->getType());
     }
 
-    function testFieldFromMethod() {
+    function testFieldFromMethod()
+    {
         $this->assertEquals('name', ClassMetadataParser::getFieldName('getName'));
         $this->assertEquals('top_name', ClassMetadataParser::getFieldName('getTopName'));
     }
 
-    private function getParser(): ClassMetadataParser {
+    private function getParser(): ClassMetadataParser
+    {
         return new ClassMetadataParser(new AnnotationReader());
     }
 }
