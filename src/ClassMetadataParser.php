@@ -41,6 +41,9 @@ class ClassMetadataParser
 
             foreach ($reflectionClass->getMethods(\ReflectionMethod::IS_PUBLIC) as $method) {
                 $mapping = $this->annotationReader->getMethodAnnotation($method, CollectionDefinition::class);
+                if ($method->getName() === '__construct' || $method->isStatic()) {
+                    continue;
+                }
                 $methods[$method->getName()] = new MethodMetadata(
                     $method->getName(),
                     self::getFieldName($method->getName()),
