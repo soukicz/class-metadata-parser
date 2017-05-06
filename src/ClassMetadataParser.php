@@ -49,7 +49,7 @@ class ClassMetadataParser
                 );
             }
 
-            $this->cache[$className] = new ClassMetadata($methods);
+            $this->cache[$className] = new ClassMetadata($methods, $reflectionClass);
         }
         return $this->cache[$className];
     }

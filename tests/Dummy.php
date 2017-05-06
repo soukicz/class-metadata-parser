@@ -23,7 +23,7 @@ class Dummy
 
     public function getCustomType(): ClassMetadata
     {
-        return new ClassMetadata([]);
+        return new ClassMetadata([], new \ReflectionClass(self::class));
     }
 
     public function getCustomNull():?ClassMetadata
@@ -52,7 +52,7 @@ class Dummy
      */
     public function getAnnotationCustomType(): ClassMetadata
     {
-        return new ClassMetadata([]);
+        return new ClassMetadata([], new \ReflectionClass(self::class));
     }
 
     /**
