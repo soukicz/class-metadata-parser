@@ -125,7 +125,7 @@ class ClassMetadataParser
 
     public static function getFieldName(string $methodName):?string
     {
-        if (substr($methodName, 0, 3) !== 'get') {
+        if (substr($methodName, 0, 3) !== 'get' && substr($methodName, 0, 3) !== 'is' ) {
             return null;
         }
         $name = substr($methodName, 3);
