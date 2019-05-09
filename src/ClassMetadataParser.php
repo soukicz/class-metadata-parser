@@ -127,7 +127,7 @@ class ClassMetadataParser
     {
         if(substr($methodName, 0, 3) === 'get') {
             $name = substr($methodName, 3);
-        } elseif(substr($methodName, 0, 3) === 'is') {
+        } elseif(substr($methodName, 0, 2) === 'is') {
             $name = substr($methodName, 2);
         } else {
             return null;
