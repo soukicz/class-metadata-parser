@@ -80,7 +80,7 @@ class ClassMetadataParser
                 !empty($m[2])
             );
         } elseif ($method->hasReturnType()) {
-            $type = (string)$method->getReturnType();
+            $type = $method->getReturnType() ? $method->getReturnType()->getName() : null;
             if ($type === 'self') {
                 $type = $method->getDeclaringClass()->getName();
             }
